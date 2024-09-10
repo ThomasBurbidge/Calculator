@@ -1,24 +1,28 @@
 from tkinter import *
 
+#initialise Tk game object
 root = Tk()
 
+#inputs number to entry object
 def number(num):
-    print("ran2")
     data = inputField.get()
     inputField.delete(0, END)
     inputField.insert(0, data + str(num))
-    
+
+#sets global var op to the most recent operation pressed 
 def operationFunc(op):
     global operation
     operation = op
     global num1
-    try:
+    try: #checks to see if the data in the entry field is valid (an interger or float)
         float(inputField.get())
         num1 = float(inputField.get())
         inputField.delete(0, END)
     except ValueError:
          inputField.delete(0, END)
          inputField.insert(0, "Invalid number")
+
+#checks most recent operator and calculates the final result
 def calculate(equals):
     try:
         float(inputField.get())
@@ -39,6 +43,8 @@ def calculate(equals):
     except ValueError:
         inputField.delete(0, END)
         inputField.insert(0, "Invalid number")
+
+#tuple of buttons
 buttons = [
     ("1", "0", "3", number),
     ("2", "1", "3", number),
@@ -58,6 +64,7 @@ buttons = [
     ("+", "3", "4", operationFunc)
 ]
 
+# Loops through tuple to create button elements
 # Number, Column, Row, Function
 for n, c, r, f in buttons:
     button = Button(root, text=n, command=lambda n=n, f=f: f(n), padx=25, pady=20).grid(column=c, row=r, padx=1, pady=1)
